@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="picture-container"></div>
+      <div>
+        <button id="shuffleBtn">Shuffle</button>
+      </div>
+      <div>
+        <p>
+          <span><b>Title:</b> </span><em><span id="title"></span></em>
+        </p>
+        <p>
+          <span><b>Content Here:</b></span>
+          <span id="content"></span>
+        </p>
+        <textarea name="" id="inputContent" cols="30" rows="10"></textarea
+        ><br />
+        <button id="appendBtn">Append</button>
+      </div>
+    </div>
+    <script>
+      const content = document.getElementById("content");
+      const inputContent = document.getElementById("inputContent");
+      const title = document.getElementById("title");
+
+      const pictures = ["dog", "elephant", "chillin-dog", "girl", "bird"];
+      let defaultNum = 0;
+
+      const randomizer = () => {
+        return Math.floor(Math.random() * pictures.length);
+      };
+
+      document.getElementById("shuffleBtn").onclick = () => {
+        let random = randomizer();
+        while (random === defaultNum) {
+          random = randomizer();
+        }
+        defaultNum = random;
+        showTitle(random);
+        content.innerHTML = "";
+        currentPicture(random);
+      };
+
+      const currentPicture = (random) => {
+        document.getElementById(
+          "picture-container"
+        ).innerHTML = `<img src="/pictures/${pictures[random]}.jpg" alt="">`;
+      };
+
+      document.getElementById("appendBtn").onclick = () => {
+        content.innerHTML = inputContent.value;
+        inputContent.value = "";
+      };
+
+      const showTitle = (random) => {
+        title.innerHTML = pictures[random].toLocaleUpperCase();
+      };
+
+      showTitle(defaultNum);
+      currentPicture(defaultNum);
+    </script>
+  </body>
+</html>
